@@ -62,7 +62,9 @@ def reverse_string(string):
         stack.push(letter)
     new_string = ""
     for letter in stack:
-        new_string += letter
+        new_string += stack.pop()
+    # for letter in stack:
+    #     new_string += letter
     return new_string
 
 
