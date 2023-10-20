@@ -7,6 +7,9 @@ class Stack:
     def __init__(self):
         self.head = None
 
+    def __repr__(self):
+        return f"| {self.head if self.head is not None else ''} <>"
+
     def __iter__(self):
         self.n = self.head
         return self
@@ -77,6 +80,7 @@ if __name__ == "__main__":
     stack.push(5)
     stack.push(8)
     stack.push(10)
+    print(stack)
     print(stack.is_empty())  # False
     print(stack.size())  # 5
     print(stack.pop())  # 10
