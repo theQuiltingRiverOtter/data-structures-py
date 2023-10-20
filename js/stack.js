@@ -3,6 +3,7 @@ const {Node} = require("./node.js")
 class Stack {
     constructor(){
         this.head = null;
+        this.length = 0
     }
 
     push(value){
@@ -10,6 +11,7 @@ class Stack {
         let oldHead = this.head;
         this.head = node;
         this.head.next = oldHead;
+        this.length++
     }
 
     pop(){
@@ -18,6 +20,7 @@ class Stack {
         }
         let value = this.head.value
         this.head = this.head.next
+        this.length--
         return value
     }
     peek(){
@@ -25,13 +28,13 @@ class Stack {
     }
 
     size(){
-        let current = this.head
-        let count = 0
-        while (current != null){
-            count++;
-            current = current.next
-        }
-        return count
+        // let current = this.head
+        // let count = 0
+        // while (current != null){
+        //     count++;
+        //     current = current.next
+        // }
+        return this.length
 
 
     }
