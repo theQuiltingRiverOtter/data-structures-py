@@ -85,6 +85,41 @@ class BinaryTree:
                     )
         return head
 
+    def iterative_remove(self, value):
+        current = self
+        prev = None
+        while current and current.value != value:
+            prev = current
+            if value < current.value:
+                current = current.left
+            else:
+                current = current.right
+        if current == None:
+            return self
+        if current.left is None or current.right is None:
+            if current.left is None:
+                new_node = current.right
+            else:
+                new_node = current.left
+            if prev == None:
+                return new_node
+            if current == prev.left:
+                prev.left = new_node
+            else:
+                prev.right = new_node
+        else:
+            parent = None
+            temp = current.right
+            while temp.left != None:
+                parent = temp
+                temp = temp.left
+            if parent != None:
+                parent.left = temp.right
+            else:
+                current.right = temp.right
+            current.value = temp.value
+        return self
+
     def bfs(self, value):
         current = [self]
         next = []
@@ -125,7 +160,8 @@ if __name__ == "__main__":
     head = BinaryTree(50)
     BinaryTree.insert_nodes([75, 25, 10, 5, 7, 13, 35, 60, 80], head)
     print(head)
-    BinaryTree.dfs_remove(10, head)
+    # BinaryTree.dfs_remove(10, head)
+    head.iterative_remove(10)
     # BinaryTree.dfs_invert(head)
     print(head)
     # print(head.dfs(75))
