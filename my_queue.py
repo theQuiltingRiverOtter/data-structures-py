@@ -9,6 +9,9 @@ class Queue:
     def __init__(self):
         self.head = None
 
+    def __repr__(self):
+        return f" < {self.head if self.head is not None else ''} <"
+
     def enqueue(self, value):
         """Adds items to end of queue"""
         node = Node(value)
@@ -56,6 +59,7 @@ if __name__ == "__main__":
     queue.enqueue("hello")
     queue.enqueue("goodbye")
     queue.enqueue(42)
+    print(queue)
     print(queue.is_empty())  # False
     print(queue.peek())  # 4
     print(queue.dequeue())  # 4

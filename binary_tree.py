@@ -48,6 +48,43 @@ class BinaryTree:
             BinaryTree.dfs_invert(root.left)
             BinaryTree.dfs_invert(root.right)
 
+    @staticmethod
+    def findBFSmin(head):
+        current = [head]
+        next_nodes = []
+        smallest = head
+        while current:
+            for node in current:
+                if node.value < node.value:
+                    smallest = node
+                if node.left:
+                    next_nodes.append(node.left)
+            current = next_nodes
+            next_nodes = []
+        return smallest
+
+    @staticmethod
+    def dfs_remove(value, head):
+        if head:
+            if value < head.value:
+                head.left = BinaryTree.dfs_remove(value, head.left)
+            elif value > head.value:
+                head.right = BinaryTree.dfs_remove(value, head.right)
+            else:
+                if head.left is None and head.right is None:
+                    return None
+                elif head.left is None:
+                    return head.right
+                elif head.right is None:
+                    return head.right
+                else:
+                    inorder_successor = BinaryTree.findBFSmin(head.right)
+                    head.value = inorder_successor.value
+                    head.right = BinaryTree.dfs_remove(
+                        inorder_successor.value, head.right
+                    )
+        return head
+
     def bfs(self, value):
         current = [self]
         next = []
@@ -88,7 +125,8 @@ if __name__ == "__main__":
     head = BinaryTree(50)
     BinaryTree.insert_nodes([75, 25, 10, 5, 7, 13, 35, 60, 80], head)
     print(head)
-    BinaryTree.dfs_invert(head)
+    BinaryTree.dfs_remove(10, head)
+    # BinaryTree.dfs_invert(head)
     print(head)
     # print(head.dfs(75))
     # print(head.bfs(10))
