@@ -39,6 +39,15 @@ class BinaryTree:
                 return right
         return None
 
+    @staticmethod
+    def dfs_invert(root):
+        if root:
+            temp = root.left
+            root.left = root.right
+            root.right = temp
+            BinaryTree.dfs_invert(root.left)
+            BinaryTree.dfs_invert(root.right)
+
     def bfs(self, value):
         current = [self]
         next = []
@@ -54,6 +63,21 @@ class BinaryTree:
             next = []
         return False
 
+    def bfs_invert(self):
+        current = [self]
+        next = []
+        while current:
+            for node in current:
+                if node.left:
+                    next.append(node.left)
+                if node.right:
+                    next.append(node.right)
+                temp = node.left
+                node.left = node.right
+                node.right = temp
+            current = next
+            next = []
+
     @staticmethod
     def insert_nodes(nodes: list, root):
         for node in nodes:
@@ -63,6 +87,8 @@ class BinaryTree:
 if __name__ == "__main__":
     head = BinaryTree(50)
     BinaryTree.insert_nodes([75, 25, 10, 5, 7, 13, 35, 60, 80], head)
+    print(head)
+    BinaryTree.dfs_invert(head)
     print(head)
     # print(head.dfs(75))
     # print(head.bfs(10))
